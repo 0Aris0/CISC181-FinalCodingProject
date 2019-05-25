@@ -11,21 +11,30 @@ import javafx.fxml.Initializable;
 import javafx.event.ActionEvent;
 import javafx.scene.control.DatePicker;
 
-public class LoanCalcViewController implements Initializable   {
+public class LoanCalcViewController implements Initializable{
 
 	private StudentCalc SC = null;
 	
 	@FXML
 	private TextField LoanAmount;
-
+	
+	@FXML
+	private TextField AdditionalPayment;
+	
+	@FXML
+	private TextField NbrOfYears;
+	
+	@FXML
+	private TextField InterestRate;
 	
 	@FXML
 	private Label lblTotalPayemnts;
 	
 	@FXML
+	private Label lblTotalInterest;
+	
+	@FXML
 	private DatePicker PaymentStartDate;
-	
-	
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -43,15 +52,20 @@ public class LoanCalcViewController implements Initializable   {
 	 */
 	@FXML
 	private void btnCalcLoan(ActionEvent event) {
-
-		System.out.println("Amount: " + LoanAmount.getText());
-		double dLoanAmount = Double.parseDouble(LoanAmount.getText());
-		System.out.println("Amount: " + dLoanAmount);	
+	
+		calHelper lc = new calHelper(Double.parseDouble(LoanAmount.getText()), 
+		Double.parseDouble(AdditionalPayment.getText()), Integer.parseInt(NbrOfYears.getText()), 
+		Double.parseDouble(InterestRate.getText()));
 		
-		lblTotalPayemnts.setText("123");
+		double TotalPayment = lc.CalculateTotalPayment();
+		TotalPayment = Math.round(TotalPayment*100.0)/100.0;
+		double TotalInterest = lc.CalculateTotalInterest();
+		TotalInterest = Math.round(TotalInterest*100.0)/100.0;
 		
+		lblTotalPayemnts.setText(String.valueOf(TotalPayment));
+		lblTotalInterest.setText(String.valueOf(TotalInterest));
+	
 		LocalDate localDate = PaymentStartDate.getValue();
-	 
 		System.out.println(localDate);
 	}
 }
