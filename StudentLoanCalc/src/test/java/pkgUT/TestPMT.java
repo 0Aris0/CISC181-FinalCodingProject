@@ -11,6 +11,7 @@ public class TestPMT {
 	@Test
 	public void Test() {
 		double PMT;
+		
 		double r = 0.08 / 12;
 		double n = 20 * 12;
 		double p = 200000;
@@ -29,8 +30,10 @@ public class TestPMT {
 		double PMT;
 		double r = 0.08 / 12;
 		double n = 20 * 12;
+		
 		double p = 200000;
 		double f = 0;
+		
 		boolean t = false;
 		PMT = Math.abs(FinanceLib.pmt(r, n, p, f, t));
 		
@@ -45,9 +48,14 @@ public class TestPMT {
 		int years = 20;
 		double interest = .06;
 		double additionalAmount = 0;
+		
+		
+		
 		calHelper lc = new calHelper(Loan, additionalAmount, years, interest);
 	
 		double interest1 = lc.CalculateTotalInterest();
+		
+		
 		System.out.println(interest1);
 		assertEquals(interest1, 215830.36, .01);
 		
